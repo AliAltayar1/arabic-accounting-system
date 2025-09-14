@@ -59,8 +59,6 @@ export default function SellBillsPage() {
 
   const total = subTotal - totalDiscount;
 
-  console.log(salesBill);
-
   // Reset form
   const resetForm = () => {
     setCustomerName("");
@@ -76,8 +74,6 @@ export default function SellBillsPage() {
       toast.warning("المنتج غير متوفر أو نفد من المخزون");
       return;
     }
-
-    console.log(products);
 
     const existingItem = sellItems.find(
       (item) => item.products.id === productId
@@ -99,7 +95,6 @@ export default function SellBillsPage() {
         discount_amount: 0,
         quantity: 1,
       };
-      console.log(newItem);
       setSellItems([...sellItems, newItem]);
     }
   };
@@ -166,8 +161,6 @@ export default function SellBillsPage() {
       }
     }
 
-    console.log(customerId);
-
     const salesData = {
       ...(isEdit && { p_sale_id: updatedBillId }),
       p_customer_id: customerId || null,
@@ -214,7 +207,6 @@ export default function SellBillsPage() {
 
   // Generate print content
   const generatePrintContent = (bill) => {
-    console.log(bill);
     return `
       <!DOCTYPE html>
       <html dir="rtl">
@@ -504,10 +496,10 @@ export default function SellBillsPage() {
                             onChange={(e) => {
                               const discountValue =
                                 Number.parseFloat(e.target.value) || 0;
-                              console.log(discountValue);
+
                               const maxDiscount =
                                 item.products.selling_price * item.quantity;
-                              console.log(maxDiscount);
+
                               if (discountValue > maxDiscount) {
                                 toast.warn(
                                   `الخصم أكبر من سعر البيع. الحد الأقصى للخصم: ${maxDiscount.toFixed(

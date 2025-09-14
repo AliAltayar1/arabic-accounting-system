@@ -36,7 +36,7 @@ import { toast } from "react-toastify";
 import { getAllCategory } from "@/lib/category/getAllCategory";
 import { getSupplierByName } from "../../lib/suppliers/getSupplierByName";
 import { supabase } from "../../lib/supabase";
-
+// import {s} from "../pages/api/suppliers"
 export default function PurchaseBillsPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [vendorName, setVendorName] = useState("");
@@ -84,7 +84,6 @@ export default function PurchaseBillsPage() {
         product: { ...updatedItems[index].product, [field]: value },
       };
     }
-    console.log(updatedItems);
     setPurchaseItems(updatedItems);
   };
 
@@ -105,8 +104,6 @@ export default function PurchaseBillsPage() {
 
   const total = subtotal - totalDiscount;
 
-  console.log(totalDiscount);
-
   const savePurchaseBill = async () => {
     if (purchaseItems.length === 0) {
       toast.warn("يرجى إضافة عناصر للفاتورة");
@@ -124,7 +121,6 @@ export default function PurchaseBillsPage() {
     let supplierId;
     try {
       if (vendorName) supplierId = await getSupplierByName(vendorName);
-      // console.log(supplierId);
     } catch (error) {
       console.log(error);
     }
@@ -145,8 +141,6 @@ export default function PurchaseBillsPage() {
       })),
       ...(isEdit && { p_purchase_id: updatedBillId }),
     };
-
-    console.log(purchaseData);
 
     if (isEdit) {
       const { error } = await supabase.rpc(
@@ -191,7 +185,6 @@ export default function PurchaseBillsPage() {
 
   // Generate print content
   const generatePrintContent = (bill) => {
-    console.log(bill);
     return `
       <!DOCTYPE html>
       <html dir="rtl">
@@ -271,11 +264,8 @@ export default function PurchaseBillsPage() {
       bill.id.includes(searchTerm)
   );
 
-  console.log(purchaseItems);
-
   // Add edit bill function
   const editBill = (bill) => {
-    console.log(bill);
     const newItems = bill.items.map((b) => ({
       product: {
         name: b.products.name,
@@ -288,7 +278,6 @@ export default function PurchaseBillsPage() {
       quantity: b.quantity,
       discount: b.discount_amount,
     }));
-    console.log(newItems);
 
     setPurchaseItems([...newItems]);
 
@@ -390,7 +379,6 @@ export default function PurchaseBillsPage() {
 
               <div className="space-y-3 max-h-96 overflow-y-auto">
                 {purchaseItems.map((item, index) => {
-                  // console.log(item);
                   return (
                     <Card
                       key={index}

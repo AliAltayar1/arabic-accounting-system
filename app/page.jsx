@@ -49,8 +49,6 @@ export default function HomePage() {
       console.log(error.message);
     }
   };
-  console.log(fetchedProducts);
-  console.log(salesBill);
 
   useEffect(() => {
     fetchAllProducts();

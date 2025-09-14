@@ -57,11 +57,9 @@ export default function POSPage() {
 
   // Handle barcode scan/search
   const handleBarcodeSearch = () => {
-    console.log(barcode);
     if (!barcode.trim()) return;
 
     const product = fetchedProducts.find((p) => p.barcode === barcode.trim());
-    console.log(product);
     if (product && product.quantity_in_stock > 0) {
       addToCart(product.id);
       toast.success("تمت إضافة المنتج إلى السلة");
@@ -80,9 +78,6 @@ export default function POSPage() {
     const existingItem = cartItems.find(
       (item) => item.product.id === productId
     );
-
-    console.log(existingItem);
-    console.log(product);
 
     if (existingItem) {
       if (existingItem.quantity >= product.quantity_in_stock) {
@@ -106,10 +101,6 @@ export default function POSPage() {
 
   // Update cart item
   const updateCartItem = (index, field, value) => {
-    console.log(index);
-    console.log(field);
-    console.log(value);
-
     const updatedItems = [...cartItems];
     const item = updatedItems[index];
 
@@ -173,8 +164,6 @@ export default function POSPage() {
     //     console.log(error);
     //   }
     // }
-
-    // console.log(customerId);
 
     const salesData = {
       p_customer_id: customerId || null,

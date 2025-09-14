@@ -29,7 +29,6 @@ export default function ReportsPage() {
   const [salesBillLastWeek, setSalesBillLastWeek] = useState([]);
   const [purchasesBill, setPurchasesBill] = useState([]);
   const [fetchedProducts, setFetchedProducts] = useState([]);
-  console.log(salesBillLastWeek);
 
   // دمجهم مع بعض
   const allBills = [...salesBill, ...purchasesBill].map((bill) => {
@@ -43,8 +42,6 @@ export default function ReportsPage() {
 
   // ترتيبهم حسب الأحدث أولاً
   allBills.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
-  console.log(allBills);
 
   // Calculate statistics
 
