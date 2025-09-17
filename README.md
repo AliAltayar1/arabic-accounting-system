@@ -34,5 +34,4 @@ Deployment: Vercel (for frontend) + Supabase (for backend)
 The goal of this project is to provide a simple, affordable, and modern accounting solution for small shops like electronics, clothing, and household stores, making accounting and stock management easier than traditional tools.
 
 📸 Demo
-
-(You can add screenshots or a demo link here after deployment)
+https://arabic-accounting-system.vercel.app
