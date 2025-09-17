@@ -119,7 +119,6 @@ export default function ProductsPage() {
     // التحقق من إدخال جميع الحقول المطلوبة
     if (
       !formData.name ||
-      !formData.category ||
       !formData.barcode ||
       !formData.cost ||
       !formData.price ||
@@ -141,10 +140,13 @@ export default function ProductsPage() {
       }
 
       // get the category id by its name
-      const categoryId = await getCategoryByName(formData?.category);
-      if (!categoryId) {
-        toast.warning("⚠️ لم يتم الحصول على معرف الفئة");
-        return;
+      let categoryId;
+      if (formData.category) {
+        categoryId = await getCategoryByName(formData?.category);
+        if (!categoryId) {
+          toast.warning("⚠️ لم يتم الحصول على معرف الفئة");
+          return;
+        }
       }
 
       const productData = {
@@ -154,7 +156,7 @@ export default function ProductsPage() {
         cost_price: parseFloat(formData.cost),
         selling_price: parseFloat(formData.price),
         quantity_in_stock: parseInt(formData.quantity),
-        category_id: categoryId,
+        category_id: categoryId || null,
       };
 
       if (editingProduct) {
