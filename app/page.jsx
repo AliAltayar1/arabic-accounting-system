@@ -87,7 +87,7 @@ export default function HomePage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-[#2C3E50]">
-              {todaySales.toFixed(2)} ر.س
+              {todaySales.toFixed(2)} د.إ
             </div>
           </CardContent>
         </Card>
@@ -101,7 +101,7 @@ export default function HomePage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-[#2C3E50]">
-              {totalRevenue.toFixed(2)} ر.س
+              {totalRevenue.toFixed(2)} د.إ
             </div>
           </CardContent>
         </Card>

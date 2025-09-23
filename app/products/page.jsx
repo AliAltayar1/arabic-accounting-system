@@ -13,6 +13,8 @@ import {
   Trash2,
   Package,
   AlertTriangle,
+  Table,
+  LayoutGrid,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -56,6 +58,7 @@ export default function ProductsPage() {
   });
   const [fetchAllProducts, setFetchAllProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [isCards, setIsCards] = useState(true);
 
   // Filter products
   const filteredProducts = fetchAllProducts.filter((product) => {
@@ -93,7 +96,7 @@ export default function ProductsPage() {
     setFormData({
       id: product.id,
       name: product.name,
-      category: product.category.name,
+      category: product.category?.name || null,
       barcode: product.barcode,
       cost: product.cost_price.toString(),
       price: product.selling_price.toString(),
@@ -174,7 +177,7 @@ export default function ProductsPage() {
       setIsDialogOpen(false);
       resetForm();
     } catch (err) {
-      console.error("❌ فشل العملية:", err.message);
+      console.error("❌ فشلت العملية:", err.message);
       toast.warning("حدث خطأ أثناء تنفيذ العملية: " + err.message);
     }
   };
@@ -220,6 +223,9 @@ export default function ProductsPage() {
         console.error("Failed to load products: ", err);
       }
     };
+
+    const displayMethod = localStorage.getItem("display-method");
+    setIsCards(displayMethod == "true" ? true : false);
 
     loadCategories();
   }, []);
@@ -402,140 +408,260 @@ export default function ProductsPage() {
         </Select>
       </div>
 
-      {/* Products Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {filteredProducts &&
-          filteredProducts.map((product) => {
-            return (
-              <Card
-                key={product.id}
-                className={`transition-shadow ${
-                  product.quantity_in_stock === 0
-                    ? "bg-gray-100 border-2 border-red-400 opacity-75"
-                    : "hover:shadow-lg"
-                }`}
-              >
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex-1">
-                      <h3
-                        className={`font-semibold text-lg mb-1 ${
-                          product.quantity_in_stock === 0 ? "text-gray-500" : ""
-                        }`}
-                      >
-                        {product.name}
-                        {product.quantity_in_stock === 0 && (
-                          <span className="text-red-500 text-sm block">
-                            نفد من المخزون
-                          </span>
-                        )}
-                      </h3>
-                      <Badge
-                        variant={
-                          product.quantity_in_stock === 0
-                            ? "destructive"
-                            : "secondary"
-                        }
-                        className="mb-2"
-                      >
-                        {product.category?.name || "لا يوجد فئة"}
-                      </Badge>
-
-                      <p className="text-gray-500 text-xs mb-3">
-                        {product.description}
-                      </p>
-                    </div>
-
-                    <div className="flex gap-1">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => openEditDialog(product)}
-                        className="text-[#2E86DE] hover:text-[#1e5f99]"
-                      >
-                        <Edit className="h-4 w-4" />
-                      </Button>
-
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => deleteProduct(product.id)}
-                        className="text-[#E74C3C] hover:text-[#c0392b]"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">الباركود:</span>
-                      <span className="ltr">{product.barcode}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">التكلفة:</span>
-                      <span
-                        className={
-                          product.quantity_in_stock === 0 ? "text-gray-400" : ""
-                        }
-                      >
-                        {product.cost_price.toFixed(2)} ر.س
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">سعر البيع:</span>
-                      <span
-                        className={`font-semibold ${
-                          product.quantity_in_stock === 0
-                            ? "text-gray-400"
-                            : "text-[#2E86DE]"
-                        }`}
-                      >
-                        {product.selling_price.toFixed(2)} ر.س
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">الكمية:</span>
-                      <span
-                        className={`font-semibold ${
-                          product.quantity_in_stock === 0
-                            ? "text-red-500"
-                            : product.quantity_in_stock < 10
-                            ? "text-[#E74C3C]"
-                            : "text-[#27AE60]"
-                        }`}
-                      >
-                        {product.quantity_in_stock}
-                        {product.quantity_in_stock < 10 &&
-                          product.quantity_in_stock > 0 && (
-                            <AlertTriangle className="inline h-3 w-3 mr-1" />
-                          )}
-                        {product.quantity_in_stock === 0 && (
-                          <span className="mr-1">نفد</span>
-                        )}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">الربح:</span>
-                      <span
-                        className={`font-semibold ${
-                          product.quantity_in_stock === 0
-                            ? "text-gray-400"
-                            : "text-[#27AE60]"
-                        }`}
-                      >
-                        {(product.selling_price - product.cost_price).toFixed(
-                          2
-                        )}{" "}
-                        ر.س
-                      </span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
+      {/* Method of displaying the products*/}
+      <div className="flex gap-8 items-center mb-6">
+        <h2>طريقة عرض المنتجات:</h2>
+        <div className="flex gap-3">
+          <button
+            className="flex gap-1 px-3 py-2 bg-gray-300 rounded cursor-pointer hover:bg-gray-200"
+            onClick={() => {
+              setIsCards(false);
+              localStorage.setItem("display-method", false);
+            }}
+          >
+            جدول
+            <span>
+              <Table />
+            </span>
+          </button>
+          <button
+            className="flex gap-1 px-3 py-2 bg-gray-300 rounded cursor-pointer hover:bg-gray-200"
+            onClick={() => {
+              setIsCards(true);
+              localStorage.setItem("display-method", true);
+            }}
+          >
+            بطاقات
+            <span>
+              <LayoutGrid />
+            </span>
+          </button>
+        </div>
       </div>
+
+      {/* products card grid */}
+      {isCards && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {filteredProducts &&
+            filteredProducts.map((product) => {
+              return (
+                <Card
+                  key={product.id}
+                  className={`transition-shadow ${
+                    product.quantity_in_stock === 0
+                      ? "bg-gray-100 border-2 border-red-400 opacity-75"
+                      : "hover:shadow-lg"
+                  }`}
+                >
+                  <CardContent className="p-4">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex-1">
+                        <h3
+                          className={`font-semibold text-lg mb-1 ${
+                            product.quantity_in_stock === 0
+                              ? "text-gray-500"
+                              : ""
+                          }`}
+                        >
+                          {product.name}
+                          {product.quantity_in_stock === 0 && (
+                            <span className="text-red-500 text-sm block">
+                              نفد من المخزون
+                            </span>
+                          )}
+                        </h3>
+                        <Badge
+                          variant={
+                            product.quantity_in_stock === 0
+                              ? "destructive"
+                              : "secondary"
+                          }
+                          className="mb-2"
+                        >
+                          {product.category?.name || "لا يوجد فئة"}
+                        </Badge>
+
+                        <p className="text-gray-500 text-xs mb-3">
+                          {product.description}
+                        </p>
+                      </div>
+
+                      <div className="flex gap-1">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => openEditDialog(product)}
+                          className="text-[#2E86DE] hover:text-[#1e5f99]"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Button>
+
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => deleteProduct(product.id)}
+                          className="text-[#E74C3C] hover:text-[#c0392b]"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">الباركود:</span>
+                        <span className="ltr">{product.barcode}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">التكلفة:</span>
+                        <span
+                          className={
+                            product.quantity_in_stock === 0
+                              ? "text-gray-400"
+                              : ""
+                          }
+                        >
+                          {product.cost_price.toFixed(2)} د.إ
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">سعر البيع:</span>
+                        <span
+                          className={`font-semibold ${
+                            product.quantity_in_stock === 0
+                              ? "text-gray-400"
+                              : "text-[#2E86DE]"
+                          }`}
+                        >
+                          {product.selling_price.toFixed(2)} د.إ
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">الكمية:</span>
+                        <span
+                          className={`font-semibold ${
+                            product.quantity_in_stock === 0
+                              ? "text-red-500"
+                              : product.quantity_in_stock < 10
+                              ? "text-[#E74C3C]"
+                              : "text-[#27AE60]"
+                          }`}
+                        >
+                          {product.quantity_in_stock}
+                          {product.quantity_in_stock < 10 &&
+                            product.quantity_in_stock > 0 && (
+                              <AlertTriangle className="inline h-3 w-3 mr-1" />
+                            )}
+                          {product.quantity_in_stock === 0 && (
+                            <span className="mr-1">نفد</span>
+                          )}
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">الربح:</span>
+                        <span
+                          className={`font-semibold ${
+                            product.quantity_in_stock === 0
+                              ? "text-gray-400"
+                              : "text-[#27AE60]"
+                          }`}
+                        >
+                          {(product.selling_price - product.cost_price).toFixed(
+                            2
+                          )}{" "}
+                          د.إ
+                        </span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+        </div>
+      )}
+
+      {/* products table*/}
+      {!isCards && (
+        <div className="scrollable overflow-x-auto max-w-full ">
+          {filteredProducts && (
+            <table className="min-w-[200px] border-2 mt-10 border-collapse ">
+              <thead>
+                <tr className="text-center ">
+                  <th className="border p-2">اسم المنتج</th>
+                  <th className="border p-2">الوصف</th>
+                  <th className="border p-2">الباركود</th>
+                  <th className="border p-2">الفئة</th>
+                  <th className="border p-2">الكمية</th>
+                  <th className="border p-2">التكلفة</th>
+                  <th className="border p-2">سعرالبيع</th>
+                  <th className="border p-2">الربح</th>
+                  <th className="border p-2">إجراءات</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredProducts.map((product) => {
+                  const profit = product.selling_price - product.cost_price;
+                  return (
+                    <tr
+                      key={product.id}
+                      className={`text-center border-2 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 ${
+                        product.quantity_in_stock == 0 ? "bg-red-100" : ""
+                      }`}
+                    >
+                      <td className={` p-2`}>{product.name}</td>
+                      <td className=" p-2">
+                        {product.description || "لا يوجد وصف"}
+                      </td>
+                      <td className=" p-2">{product.barcode}</td>
+                      <td className=" p-2">
+                        {product.category?.name || "لا يوجد فئة"}
+                      </td>
+                      <td
+                        className={`p-2 ${
+                          product.quantity_in_stock == 0 ? "text-red-400" : ""
+                        }`}
+                      >
+                        {product.quantity_in_stock == 0 ? (
+                          <span className="flex flex-col items-center gap-1 text-red-500">
+                            نفذ من المخزون
+                            <AlertTriangle size={16} />
+                          </span>
+                        ) : (
+                          product.quantity_in_stock
+                        )}
+                      </td>
+                      <td className=" p-2">{product.cost_price} د.إ</td>
+                      <td className=" p-2">{product.selling_price} د.إ</td>
+                      <td className=" p-2">{profit} د.إ</td>
+                      <td className=" p-2 ">
+                        <div className="flex gap-1">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => openEditDialog(product)}
+                            className="text-[#2E86DE] hover:text-[#1e5f99]"
+                          >
+                            <Edit className="h-4 w-4" />
+                          </Button>
+
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => deleteProduct(product.id)}
+                            className="text-[#E74C3C] hover:text-[#c0392b]"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
 
       {fetchAllProducts.length === 0 && (
         <div className="text-center py-12">

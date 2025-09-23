@@ -218,7 +218,7 @@ export default function ReportsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-[#27AE60]">
-              {totalSales.toFixed(2)} ر.س
+              {totalSales.toFixed(2)} د.إ
             </div>
             <p className="text-xs text-gray-600 mt-1">
               {periodLabels[selectedPeriod]}
@@ -235,7 +235,7 @@ export default function ReportsPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-[#E74C3C]">
-              {totalPurchases.toFixed(2)} ر.س
+              {totalPurchases.toFixed(2)} د.إ
             </div>
             <p className="text-xs text-gray-600 mt-1">
               {periodLabels[selectedPeriod]}
@@ -256,7 +256,7 @@ export default function ReportsPage() {
                 totalProfit >= 0 ? "text-[#27AE60]" : "text-[#E74C3C]"
               }`}
             >
-              {totalProfit.toFixed(2)} ر.س
+              {totalProfit.toFixed(2)} د.إ
             </div>
             <p className="text-xs text-gray-600 mt-1">
               {periodLabels[selectedPeriod]}
@@ -276,7 +276,7 @@ export default function ReportsPage() {
               {salesCount}
             </div>
             <p className="text-xs text-gray-600 mt-1">
-              متوسط الفاتورة: {averageSale.toFixed(2)} ر.س
+              متوسط الفاتورة: {averageSale.toFixed(2)} د.إ
             </p>
           </CardContent>
         </Card>
@@ -309,14 +309,14 @@ export default function ReportsPage() {
                     >
                       {/* {day.sales > 0 && (
                         <span className="text-white text-xs font-medium">
-                          {day.sales.toFixed(0)} ر.س
+                          {day.sales.toFixed(0)} د.إ
                         </span>
                       )} */}
                     </div>
 
                     {day.sales > 0 && (
                       <span className="text-green-500 text-xs font-bold absolute top-1/2 -translate-y-1/2 left-3">
-                        {day.sales.toFixed(0)} ر.س
+                        {day.sales.toFixed(0)} د.إ
                       </span>
                     )}
                   </div>
@@ -350,7 +350,7 @@ export default function ReportsPage() {
                     </div>
                     <div className="text-left">
                       <div className="font-bold text-[#27AE60]">
-                        {product.subtotal.toFixed(2)} ر.س
+                        {product.subtotal.toFixed(2)} د.إ
                       </div>
                     </div>
                   </div>
@@ -429,7 +429,7 @@ export default function ReportsPage() {
                     }`}
                   >
                     {bill.type === "sale" ? "+" : "-"}
-                    {bill.total_amount.toFixed(2)} ر.س
+                    {bill.total_amount.toFixed(2)} د.إ
                   </div>
                 </div>
               ))}

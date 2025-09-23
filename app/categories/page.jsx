@@ -79,7 +79,7 @@ export default function CategoriesPage() {
       }
       getCategoriesFn();
     } catch (error) {
-      toast.error(`فشلة العملية ${error.message}`);
+      toast.error(`فشلت العملية ${error.message}`);
       console.log(error);
     }
     setIsDialogOpen(false);

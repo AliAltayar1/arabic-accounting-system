@@ -250,12 +250,12 @@ export default function SellBillsPage() {
               <tr>
                 <td>${item.products.name}</td>
                 <td>${item.quantity}</td>
-                <td>${item.products.selling_price.toFixed(2)} ر.س</td>
-                <td>${item.discount_amount.toFixed(2)} ر.س</td>
+                <td>${item.products.selling_price.toFixed(2)} د.إ</td>
+                <td>${item.discount_amount.toFixed(2)} د.إ</td>
                 <td>${(
                   item.products.selling_price * item.quantity -
                   item.discount_amount
-                ).toFixed(2)} ر.س</td>
+                ).toFixed(2)} د.إ</td>
               </tr>
             `
               )
@@ -266,11 +266,11 @@ export default function SellBillsPage() {
         <div style="margin-top: 20px;">
           <p>المجموع الفرعي: ${(
             bill.total_amount + bill.total_discount
-          ).toFixed(2)} ر.س</p>
-          <p>إجمالي الخصم: ${bill.total_discount.toFixed(2)} ر.س</p>
+          ).toFixed(2)} د.إ</p>
+          <p>إجمالي الخصم: ${bill.total_discount.toFixed(2)} د.إ</p>
           <p class="total">المجموع الكلي: ${bill.total_amount.toFixed(
             2
-          )} ر.س</p>
+          )} د.إ</p>
         </div>
         
         <div style="text-align: center; margin-top: 30px;">
@@ -504,7 +504,7 @@ export default function SellBillsPage() {
                                 toast.warn(
                                   `الخصم أكبر من سعر البيع. الحد الأقصى للخصم: ${maxDiscount.toFixed(
                                     2
-                                  )} ر.س`
+                                  )} د.إ`
                                 );
                                 return;
                               }
@@ -527,7 +527,7 @@ export default function SellBillsPage() {
                             value={`${(
                               item.products.selling_price * item.quantity -
                               item.discount_amount
-                            ).toFixed(2)} ر.س`}
+                            ).toFixed(2)} د.إ`}
                             readOnly
                             className="bg-gray-50 font-semibold"
                           />
@@ -551,16 +551,16 @@ export default function SellBillsPage() {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span>المجموع الفرعي:</span>
-                      <span>{subTotal.toFixed(2)} ر.س</span>
+                      <span>{subTotal.toFixed(2)} د.إ</span>
                     </div>
                     <div className="flex justify-between text-red-600">
                       <span>إجمالي الخصم:</span>
-                      <span>-{totalDiscount.toFixed(2)} ر.س</span>
+                      <span>-{totalDiscount.toFixed(2)} د.إ</span>
                     </div>
                     <div className="flex justify-between text-lg font-bold border-t pt-2">
                       <span>المجموع الكلي:</span>
                       <span className="text-[#2E86DE]">
-                        {total.toFixed(2)} ر.س
+                        {total.toFixed(2)} د.إ
                       </span>
                     </div>
                   </div>
@@ -626,7 +626,7 @@ export default function SellBillsPage() {
                 <div className="flex items-center gap-2">
                   <div className="text-left">
                     <div className="text-lg font-bold text-[#2E86DE]">
-                      {bill.total_amount.toFixed(2)} ر.س
+                      {bill.total_amount.toFixed(2)} د.إ
                     </div>
                     <div className="text-sm text-gray-600">
                       {bill.items.length} منتج
@@ -674,7 +674,7 @@ export default function SellBillsPage() {
                         item.products.selling_price * item.quantity -
                         item.discount_amount
                       ).toFixed(2)}{" "}
-                      ر.س
+                      د.إ
                     </span>
                   </div>
                 ))}

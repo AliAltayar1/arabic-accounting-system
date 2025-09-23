@@ -37,8 +37,6 @@ export const getAllSalesBill = async (duration = null) => {
 
   const { data: sales, error } = await query;
 
-  // console.log(sales);
-
   if (error) throw new Error(error.message);
 
   return sales;

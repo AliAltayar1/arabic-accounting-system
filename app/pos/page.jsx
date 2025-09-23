@@ -311,12 +311,12 @@ export default function POSPage() {
             <tr>
               <td>${item.product.name}</td>
               <td>${item.quantity}</td>
-              <td>${item.product.selling_price.toFixed(2)} ر.س</td>
-              <td>${item.discount_amount.toFixed(2)} ر.س</td>
+              <td>${item.product.selling_price.toFixed(2)} د.إ</td>
+              <td>${item.discount_amount.toFixed(2)} د.إ</td>
               <td>${(
                 item.product.selling_price * item.quantity -
                 item.discount_amount
-              ).toFixed(2)} ر.س</td>
+              ).toFixed(2)} د.إ</td>
             </tr>
           `
             )
@@ -325,9 +325,9 @@ export default function POSPage() {
       </table>
 
       <div class="summary">
-        <p>المجموع الفرعي: ${cartSubtotal.toFixed(2)} ر.س</p>
-        <p>إجمالي الخصم: ${cartDiscount.toFixed(2)} ر.س</p>
-        <p class="total">المجموع الكلي: ${cartTotal.toFixed(2)} ر.س</p>
+        <p>المجموع الفرعي: ${cartSubtotal.toFixed(2)} د.إ</p>
+        <p>إجمالي الخصم: ${cartDiscount.toFixed(2)} د.إ</p>
+        <p class="total">المجموع الكلي: ${cartTotal.toFixed(2)} د.إ</p>
       </div>
 
       <div class="footer">
@@ -502,7 +502,7 @@ export default function POSPage() {
                             : "text-[#2E86DE]"
                         }`}
                       >
-                        {product.selling_price.toFixed(2)} ر.س
+                        {product.selling_price.toFixed(2)} د.إ
                       </p>
                       <p
                         className={`text-xs transition-colors duration-200 ${
@@ -606,7 +606,7 @@ export default function POSPage() {
                               </Button>
                             </div>
                             <span className="font-medium">
-                              {item.product.selling_price.toFixed(2)} ر.س
+                              {item.product.selling_price.toFixed(2)} د.إ
                             </span>
                           </div>
 
@@ -625,7 +625,7 @@ export default function POSPage() {
                                   toast.warning(
                                     `الخصم أكبر من سعر البيع. الحد الأقصى للخصم: ${maxDiscount.toFixed(
                                       2
-                                    )} ر.س`
+                                    )} د.إ`
                                   );
                                   return;
                                 }
@@ -645,7 +645,7 @@ export default function POSPage() {
                                 item.product.selling_price * item.quantity -
                                 item.discount_amount
                               ).toFixed(2)}{" "}
-                              ر.س
+                              د.إ
                             </span>
                           </div>
                         </div>
@@ -657,16 +657,16 @@ export default function POSPage() {
                   <div className="border-t pt-4 space-y-2">
                     <div className="flex justify-between">
                       <span>المجموع الفرعي:</span>
-                      <span>{cartSubtotal.toFixed(2)} ر.س</span>
+                      <span>{cartSubtotal.toFixed(2)} د.إ</span>
                     </div>
                     <div className="flex justify-between text-red-600">
                       <span>إجمالي الخصم:</span>
-                      <span>-{cartDiscount.toFixed(2)} ر.س</span>
+                      <span>-{cartDiscount.toFixed(2)} د.إ</span>
                     </div>
                     <div className="flex justify-between text-lg font-bold border-t pt-2">
                       <span>المجموع الكلي:</span>
                       <span className="text-[#2E86DE]">
-                        {cartTotal.toFixed(2)} ر.س
+                        {cartTotal.toFixed(2)} د.إ
                       </span>
                     </div>
                   </div>

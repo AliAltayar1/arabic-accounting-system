@@ -230,12 +230,12 @@ export default function PurchaseBillsPage() {
                 <td>${item.products.name}</td>
                 <td>${item.products.categoryName?.name || "عامة"}</td>
                 <td>${item.quantity}</td>
-                <td>${item.products.cost_price.toFixed(2)} ر.س</td>
-                <td>${item.discount_amount.toFixed(2)} ر.س</td>
+                <td>${item.products.cost_price.toFixed(2)} د.إ</td>
+                <td>${item.discount_amount.toFixed(2)} د.إ</td>
                 <td>${(
                   item.products.cost_price * item.quantity -
                   item.discount_amount
-                ).toFixed(2)} ر.س</td>
+                ).toFixed(2)} د.إ</td>
               </tr>
             `
               )
@@ -246,11 +246,11 @@ export default function PurchaseBillsPage() {
         <div style="margin-top: 20px;">
           <p>المجموع الفرعي: ${(
             bill.total_amount + bill.total_discount
-          ).toFixed(2)} ر.س</p>
-          <p>إجمالي الخصم: ${bill.total_discount.toFixed(2)} ر.س</p>
+          ).toFixed(2)} د.إ</p>
+          <p>إجمالي الخصم: ${bill.total_discount.toFixed(2)} د.إ</p>
           <p class="total">المجموع الكلي: ${bill.total_amount.toFixed(
             2
-          )} ر.س</p>
+          )} د.إ</p>
         </div>
       </body>
       </html>
@@ -489,7 +489,7 @@ export default function PurchaseBillsPage() {
                                   toast.warn(
                                     `الخصم أكبر من سعر الشراء. الحد الأقصى للخصم: ${maxDiscount.toFixed(
                                       2
-                                    )} ر.س`
+                                    )} د.إ`
                                   );
                                   return;
                                 }
@@ -522,7 +522,7 @@ export default function PurchaseBillsPage() {
                           item.product.cost * item.quantity -
                           item.discount
                         ).toFixed(2)}{" "}
-                        ر.س
+                        د.إ
                       </div>
                     </Card>
                   );
@@ -534,16 +534,16 @@ export default function PurchaseBillsPage() {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span>المجموع الفرعي:</span>
-                      <span>{subtotal.toFixed(2)} ر.س</span>
+                      <span>{subtotal.toFixed(2)} د.إ</span>
                     </div>
                     <div className="flex justify-between text-red-600">
                       <span>إجمالي الخصم:</span>
-                      <span>-{totalDiscount.toFixed(2)} ر.س</span>
+                      <span>-{totalDiscount.toFixed(2)} د.إ</span>
                     </div>
                     <div className="flex justify-between text-lg font-bold border-t pt-2">
                       <span>المجموع الكلي:</span>
                       <span className="text-[#2E86DE]">
-                        {total.toFixed(2)} ر.س
+                        {total.toFixed(2)} د.إ
                       </span>
                     </div>
                   </div>
@@ -621,7 +621,7 @@ export default function PurchaseBillsPage() {
                   <div className="flex items-center gap-2">
                     <div className="text-left">
                       <div className="text-lg font-bold text-[#2E86DE]">
-                        {bill.total_amount.toFixed(2)} ر.س
+                        {bill.total_amount.toFixed(2)} د.إ
                       </div>
                       <div className="text-sm text-gray-600">
                         {bill.items.length} منتج
@@ -674,7 +674,7 @@ export default function PurchaseBillsPage() {
                               item.products.cost_price * item.quantity -
                               item.discount_amount
                             ).toFixed(2)}{" "}
-                            ر.س
+                            د.إ
                           </span>
                         </div>
                       );
