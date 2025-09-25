@@ -481,7 +481,6 @@ export default function SellBillsPage() {
                           <Label>السعر</Label>
                           <Input
                             type="number"
-                            step="0.01"
                             value={item.products.selling_price}
                             readOnly
                             className="bg-gray-50"

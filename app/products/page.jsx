@@ -582,9 +582,9 @@ export default function ProductsPage() {
 
       {/* products table*/}
       {!isCards && (
-        <div className="scrollable overflow-x-auto max-w-full ">
+        <div className="scrollable overflow-x-auto w-full ">
           {filteredProducts && (
-            <table className="min-w-[200px] border-2 mt-10 border-collapse ">
+            <table className="min-w-[200px] border-2 mt-10 border-collapse w-full">
               <thead>
                 <tr className="text-center ">
                   <th className="border p-2">اسم المنتج</th>

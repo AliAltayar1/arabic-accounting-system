@@ -442,7 +442,6 @@ export default function PurchaseBillsPage() {
                           <Label>سعر التكلفة</Label>
                           <Input
                             type="number"
-                            step="0.01"
                             value={item.product.cost || ""}
                             onChange={(e) =>
                               updatePurchaseItem(
